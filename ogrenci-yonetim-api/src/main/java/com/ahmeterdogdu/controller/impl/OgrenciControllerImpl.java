@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ahmeterdogdu.controller.IOgrenciController;
-import com.ahmeterdogdu.entities.Ogrenci;
+import com.ahmeterdogdu.dto.DtoOgrenci;
+import com.ahmeterdogdu.dto.DtoOgrenciIU;
 import com.ahmeterdogdu.services.IOgrenciService;
+
+import jakarta.validation.Valid;
 
 @RequestMapping("/rest/api/ogrenci")
 @RestController
@@ -26,19 +29,19 @@ public class OgrenciControllerImpl implements IOgrenciController {
 	
 	@PostMapping(path = "/save")
 	@Override
-	public Ogrenci saveOgrenci(@RequestBody Ogrenci ogrenci) {
-		return ogrenciService.saveOgrenci(ogrenci);
+	public DtoOgrenci saveOgrenci(@RequestBody @Valid DtoOgrenciIU dtoOgrenciIU) {
+		return ogrenciService.saveOgrenci(dtoOgrenciIU);
 	}
 
 	@GetMapping("/list")
 	@Override
-	public List<Ogrenci> getAllOgrenci() {
+	public List<DtoOgrenci> getAllOgrenci() {
 		return ogrenciService.getAllOgrenci();
 	}
 
 	@GetMapping(path = "/list/{id}")
 	@Override
-	public Ogrenci getOgrenciById(@PathVariable(name = "id",required = true)Integer id) {
+	public DtoOgrenci getOgrenciById(@PathVariable(name = "id",required = true)Integer id) {
 		return ogrenciService.getOgrenciById(id);
 	}
 
@@ -50,14 +53,14 @@ public class OgrenciControllerImpl implements IOgrenciController {
 
 	@PutMapping(path = "/update/{id}")
 	@Override
-	public Ogrenci updateOgrenci(@PathVariable(name = "id",required = true) Integer id,
-								 @RequestBody Ogrenci updateOgrenci) {
-		return ogrenciService.updateOgrenci(id, updateOgrenci);
+	public DtoOgrenci updateOgrenci(@PathVariable(name = "id",required = true) Integer id,
+								 @RequestBody DtoOgrenciIU updateDtoOgrenciIU) {
+		return ogrenciService.updateOgrenci(id, updateDtoOgrenciIU);
 	}
 
 	@GetMapping(path = "/listWithParams")
 	@Override
-	public List<Ogrenci> getOgrenciWithParams(@RequestParam(name = "firstName",required = false) String firstName,
+	public List<DtoOgrenci> getOgrenciWithParams(@RequestParam(name = "firstName",required = false) String firstName,
 											  @RequestParam(name = "lastName",required = false) String lastName) {
 		return ogrenciService.getOgrenciWithParams(firstName, lastName);
 	}

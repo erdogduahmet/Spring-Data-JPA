@@ -2,14 +2,15 @@ package com.ahmeterdogdu.services;
 
 import java.util.List;
 
-import com.ahmeterdogdu.entities.Ogrenci;
+import com.ahmeterdogdu.dto.DtoOgrenci;
+import com.ahmeterdogdu.dto.DtoOgrenciIU;
 
 public interface IOgrenciService {
 
-	public Ogrenci saveOgrenci(Ogrenci ogrenci);
-	public List<Ogrenci> getAllOgrenci();
-	public Ogrenci getOgrenciById(Integer id);
+	public DtoOgrenci saveOgrenci(DtoOgrenciIU dtoOgrenciIU);
+	public List<DtoOgrenci> getAllOgrenci();
+	public DtoOgrenci getOgrenciById(Integer id);
 	public boolean deleteOgrenci(Integer id);
-	public Ogrenci updateOgrenci(Integer id,Ogrenci updateOgrenci);
-	public List<Ogrenci> getOgrenciWithParams(String firstName,String lastName);
+	public DtoOgrenci updateOgrenci(Integer id,DtoOgrenciIU dtoOgrenciIU);
+	public List<DtoOgrenci> getOgrenciWithParams(String firstName,String lastName);
 }

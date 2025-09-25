@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ahmeterdogdu.controller.IStudentController;
-import com.ahmeterdogdu.entities.Student;
+import com.ahmeterdogdu.dto.DtoStudent;
+import com.ahmeterdogdu.dto.DtoStudentIU;
 import com.ahmeterdogdu.services.IStudentService;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/rest/api/student")
@@ -25,19 +28,19 @@ public class StudentControllerImpl implements IStudentController {
 	
 	@PostMapping(path = "/save")
 	@Override
-	public Student saveStudent(@RequestBody Student student) {//gerçekte burada entity değil DTO kullanılır
-		return studentService.saveStudent(student);
+	public DtoStudent saveStudent(@RequestBody @Valid DtoStudentIU dtoStudentIU) {
+		return studentService.saveStudent(dtoStudentIU);
 	}
 
 	@GetMapping(path = "/list")
 	@Override
-	public List<Student> getAllStudents() {
+	public List<DtoStudent> getAllStudents() {
 		return studentService.getAllStudents();
 	}
 
 	@GetMapping(path = "/list/{id}")
 	@Override
-	public Student getStudentById(@PathVariable(name = "id",required = true)Integer id) {
+	public DtoStudent getStudentById(@PathVariable(name = "id",required = true)Integer id) {
 		return studentService.getStudentById(id);
 	}
 
@@ -49,9 +52,9 @@ public class StudentControllerImpl implements IStudentController {
 
 	@PutMapping(path = "/update/{id}")
 	@Override
-	public Student updateStudent(@PathVariable(name = "id",required = true)Integer id,
-								@RequestBody Student updateStudent) {
-		return studentService.updateStudent(id, updateStudent);
+	public DtoStudent updateStudent(@PathVariable(name = "id",required = true)Integer id,
+								@RequestBody DtoStudentIU dtoStudentIU) {
+		return studentService.updateStudent(id, dtoStudentIU);
 	}
 
 }

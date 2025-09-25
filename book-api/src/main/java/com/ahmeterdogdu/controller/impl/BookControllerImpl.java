@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ahmeterdogdu.controller.IBookController;
-import com.ahmeterdogdu.entities.Book;
+import com.ahmeterdogdu.dto.DtoBook;
+import com.ahmeterdogdu.dto.DtoBookIU;
 import com.ahmeterdogdu.services.IBookService;
+
+import jakarta.validation.Valid;
 
 @RequestMapping("/rest/api/book")
 @RestController
@@ -25,20 +28,19 @@ public class BookControllerImpl implements IBookController {
 	
 	@PostMapping(path ="/save" )
 	@Override
-	public Book saveBook(@RequestBody Book book) {
-		// TODO Auto-generated method stub
-		return bookService.saveBook(book);
+	public DtoBook saveBook(@RequestBody @Valid DtoBookIU dtoBookIU) {
+		return bookService.saveBook(dtoBookIU);
 	}
 
 	@GetMapping(path = "/list")
 	@Override
-	public List<Book> getAllBooks() {
+	public List<DtoBook> getAllBooks() {
 		return bookService.getAllBooks();
 	}
 
 	@GetMapping(path = "/list/{id}")
 	@Override
-	public Book getBookById(@PathVariable(name = "id",required = true)Integer id) {
+	public DtoBook getBookById(@PathVariable(name = "id",required = true)Integer id) {
 		return bookService.getBookById(id);
 	}
 
@@ -50,9 +52,9 @@ public class BookControllerImpl implements IBookController {
 
 	@PutMapping(path = "/update/{id}")
 	@Override
-	public Book updateBook(@PathVariable(name = "id",required = true) Integer id, 
-						   @RequestBody Book updateBook) {
-		return bookService.updateBook(id, updateBook);
+	public DtoBook updateBook(@PathVariable(name = "id",required = true) Integer id, 
+						   @RequestBody DtoBookIU updatedDtoBookIU) {
+		return bookService.updateBook(id, updatedDtoBookIU);
 	}
 
 }
